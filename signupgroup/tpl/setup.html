@@ -1,0 +1,73 @@
+<!-- 설치정보수정 화면 -->
+<!--%import("js/setup.js")-->
+<!--%import("filter/setup.xml")-->
+
+<!--#include("./_header.html")-->
+
+<!-- //{print_r($signupgroup_config,true)}
+{print_r($group_list,true)} -->
+<p id="descModule" class="x_alert x_alert-info" hidden="hidden">{$lang->about_signupgroup} 모듈 설명</p>
+
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/signupgroup/tpl/config/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+    <p>{$XE_VALIDATOR_MESSAGE}ccccccccccc</p>
+</div>
+
+<!--// BODY -->
+<section class="section">
+    <form method="get" onsubmit="return procFilter(this, setup)" class="x_form-horizontal" action="{getUrl('')}">
+        <input type="hidden" name="mid" value="signupgroup" />
+        <input type="hidden" name="module" value="signupgroup" />
+        <input type="hidden" name="act" value="procsignupgroupAdminInsertConfig" />
+        <input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+        <input type="hidden" name="xe_validator_id" value="modules/signupgroup/tpl/config/1" />
+
+        <!-- 나이, 주소, 사용여부 -->
+        <section class="section">
+            <h1>{$lang->subtitle_primary}</h1>
+            <div class="x_control-group">
+                <label class="x_control-label" for="use">사용 여부</label>
+                <div class="x_controls">
+                    <label class="x_inline" for="use_Y">
+                        <input type="radio" name="use" value="Y"  id="use_Y" checked="checked"|cond="'Y'==$signupgroup_config->use||$signupgroup_config->use==''" /> {$lang->signupgroup} 활성화
+                    </label>
+
+                    <label class="x_inline" for="use_N">
+                        <input type="radio" name="use" value="N"  id="use_N" checked="checked"|cond="'N'==$signupgroup_config->use" /> {$lang->signupgroup} 끄기
+                    </label>
+
+                    <a href="#about_use" class="x_icon-question-sign" data-toggle="#about_use">{$lang->help}aaa</a>
+                    <p id="about_use" class="x_help-block" hidden="hidden">{$lang->about_signupgroup_use}bbb</p>
+                </div>
+            </div>
+
+
+
+            <div class="x_control-group">
+                <label class="x_control-label" for="membergroup">가입자 자동 부여 등급</label>
+                <div class="x_controls">
+                    <select name="membergroup" id="membergroup">
+                    <!--@foreach($group_list as $group)-->
+                        <option value="{$group->group_srl}" selected="selected"|cond="$group->group_srl == $signupgroup_config->membergroup">{$group->title}</option>
+                    <!--@end-->
+                    </select>
+
+                    <a href="#about_membergroup" class="x_icon-question-sign" data-toggle="#about_membergroup">{$lang->help}aaa</a>
+                    <p id="about_membergroup" class="x_help-block" hidden="hidden">{$lang->about_signupgroup_membergroup}bbb</p>
+                </div>
+            </div>
+
+            <div class="x_control-group">
+                <label class="x_control-label" for="ages">{$lang->cmd_signupgroup_regkey} 가입 허가 나이</label>
+                <div class="x_controls">
+                    <input type="text" name="ages" id="ages" value="{htmlspecialchars($signupgroup_config->ages, ENT_COMPAT | ENT_HTML401, 'UTF-8', FALSE)}"/> 세 이상
+
+                    <a href="#about_ages" class="x_icon-question-sign" data-toggle="#about_ages">{$lang->help}ccc</a>
+                    <p id="about_ages" class="x_help-block" hidden="hidden">{$lang->about_signupgroup_ages}ddd</p>
+                </div>
+            </div>
+        </section>
+        <div class="btnArea">
+            <button type="submit" class="x_btn x_btn-primary x_pull-right">{$lang->cmd_registration}</button>
+        </div>
+    </form>
+</section>

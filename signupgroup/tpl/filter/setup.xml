@@ -1,0 +1,16 @@
+<!-- 설치정보수정 필터 -->
+<filter name="setup" module="signupgroup" act="procSignupgroupAdminSetup" confirm_msg_code="confirm_submit">
+    <form>
+        <node target="ages" required="true" filter="number" />
+        <node target="mid" required="true" filter="alpha_number" />
+    </form>
+    <parameter>
+        <param name="use" target="use" />
+        <param name="ages" target="ages" />
+    </parameter>
+    <response callback_func="completeAdminSetup">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="ret_act" />
+    </response>
+</filter>
